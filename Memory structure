@@ -1,0 +1,39 @@
+#include <iostream>
+#include <cstdlib>   // for malloc and free
+
+using namespace std;
+
+// Global variable (DATA segment)
+int g_num1 = 10;
+
+// Function (CODE segment)
+int adder(int n1, int n2) {
+    int tmp = 50;   // STACK
+    tmp = n1 + n2;
+    return tmp;
+}
+
+int main() {
+    // Dynamic memory allocation (HEAP)
+    int *ptr1 = (int*) malloc(sizeof(int));
+    *ptr1 = 5;
+
+    int a = 3, b = 5, c = 100;  // STACK variables
+
+    int *ptr2 = (int*) malloc(sizeof(int));
+    *ptr2 = 10;
+
+    // Free memory
+    free(ptr1);
+
+    // Function call
+    c = adder(a, b);
+
+    free(ptr2);
+
+    // Output result
+    cout << "Global variable g_num1: " << g_num1 << endl;
+    cout << "Sum (c = a + b): " << c << endl;
+
+    return 0;
+}
